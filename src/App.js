@@ -1,23 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import axios  from 'axios';
 
 function App() {
+  const [quote, setQuote] = useState('')
+  const [date, setDate] = useState('')
+  const [author, setAuthor] = useState('')
+
+  const getQuote = async () => {
+      await axios.get('https://api.quotable.io/random')
+      .then(res => {
+         console.log(res.data);
+         setQuote (res.data.content);
+         setDate (res.data.dateAdded);
+         setAuthor (res.data.author);
+      }).catch(err => {
+          console.log(err);
+      })
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       { quote && <p>{quote}</p> }
+       { author && <p>Author : {author}</p> }
+       { date && <p>Date : {date}</p> }
+
+       <button onClick={getQuote}>click</button>
     </div>
   );
 }
