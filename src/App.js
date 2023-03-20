@@ -25,7 +25,7 @@ function App() {
        { author && <p>Author : {author}</p> }
        { date && <p>Date : {date}</p> }
 
-       <button onClick={getQuote}>click</button>
+       <button onClick={getQuote}>Click To Get Quote</button>
     </div>
   );
 }
